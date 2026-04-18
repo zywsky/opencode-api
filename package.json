@@ -1,0 +1,19 @@
+{
+  "name": "opencode-api",
+  "version": "1.0.0",
+  "description": "OpenCode to GitHub Copilot API proxy using copilot-api",
+  "scripts": {
+    "start": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api start --proxy-env",
+    "start:verbose": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api start --proxy-env --verbose",
+    "start:business": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api start --proxy-env --account-type business",
+    "start:enterprise": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api start --proxy-env --account-type enterprise",
+    "auth": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api auth",
+    "usage": "NODE_OPTIONS='--import=./proxy-setup.mjs' copilot-api check-usage",
+    "debug": "copilot-api debug"
+  },
+  "keywords": ["opencode", "copilot", "proxy", "openai"],
+  "license": "ISC",
+  "dependencies": {
+    "copilot-api": "0.7.0"
+  }
+}
