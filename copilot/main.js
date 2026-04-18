@@ -795,12 +795,18 @@ fsSync.appendFileSync(
 		throw new HTTPError("Failed to create chat completions", response);
 	}
 if (payload.stream) {
-  fsSync.appendFileSync(
-    "log.log",
-    "response: ====================\n[streaming response]\n",
-    "utf8"
-  );
-  return events(response);
+  const eventStream = events(response);
+  async function* logAndYield(stream) {
+    for await (const chunk of stream) {
+      fsSync.appendFileSync(
+        "log.log",
+        "response chunk: ====================\n" + JSON.stringify(chunk) + "\n",
+        "utf8"
+      );
+      yield chunk;
+    }
+  }
+  return logAndYield(eventStream);
 }
 const resData = await response.json();
 fsSync.appendFileSync(
